@@ -1,5 +1,7 @@
-//go:build wasm
+//go:build std
+// +build std
 // +build wasm
+
 
 package pdk
 
