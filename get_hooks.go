@@ -1,10 +1,11 @@
 // +build wasm
 
-package pdk
+package pluginpdk
 
 import (
 	"encoding/json"
-	pdk "github.com/extism/go-pdk"
+	core "github.com/spirefyio/plugin-core"
+	"github.com/extism/go-pdk"
 )
 
 //go:wasmimport extism:host/pluginengine GetHooksForAnchor
@@ -18,7 +19,7 @@ func getHooks(path uint64) uint64
 //
 // This is a wrapper function which uses the imported callExtensionPointExtensions function implemented in the
 // pluginengine plugin. This wrapper makes it easier for Go plugin developers to avoid the WASM memory management
-func GetHooksForAnchor(anchorId string) ([]Hook, error) {
+func GetHooksForAnchor(anchorId string) ([]core.Hook, error) {
 	pdk.Log(pdk.LogDebug, "GetHooksForAnchors")
 
 	// allocate the memory for the string
@@ -35,7 +36,7 @@ func GetHooksForAnchor(anchorId string) ([]Hook, error) {
 
 	// get the actual []bytes
 	filedata := mem1.ReadBytes()
-	hooks := make([]Hook, 0)
+	hooks := make([]core.Hook, 0)
 
 	if nil != filedata && len(filedata) > 0 {
 		// marshal back in to the hooks object

@@ -1,6 +1,6 @@
 // +build wasm
 
-package pdk
+package pluginpdk
 
 import (
 	pdk "github.com/extism/go-pdk"

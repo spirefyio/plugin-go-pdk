@@ -1,9 +1,4 @@
-//go:build std
-// +build std
-// +build wasm
-
-
-package pdk
+package pluginpdk
 
 import (
 	"errors"
@@ -28,6 +23,7 @@ func WriteFile(path string, contents []byte) error {
 	// get the offset
 	off1 := dta1.Offset()
 
+	pdk.Log(pdk.LogDebug,"contents: " + fmt.Sprint(contents))
 	dta2 := pdk.AllocateBytes(contents)
 	off2 := dta2.Offset()
 
@@ -38,7 +34,7 @@ func WriteFile(path string, contents []byte) error {
 	// returned from the call to the imported readFile, so lets grab its memory that stores the file data
 
 	if resp != 0 {
-		return errors.New("Problem with writing to file")
+		return errors.New("Problem with writing to file: " + fmt.Sprintf("%d", resp))
 	}
 	
 	return nil
